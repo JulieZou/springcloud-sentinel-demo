@@ -1,0 +1,98 @@
+#server:
+#  port: 8800
+#
+##开启Sentinel 对 Feign 的支持
+#feign:
+#  sentinel:
+#    enabled: true
+#
+#spring:
+#  application:
+#    name: spring-cloud-sentinel-demo  #微服务名称
+#  main:
+#    allow-bean-definition-overriding: true
+#
+#  cloud:
+#    nacos:  #配置nacos注册中心地址
+#      discovery:
+#        server-addr: 192.168.0.123:8847
+#        username: nacos
+#        password: nacos
+#    sentinel:
+#      transport:
+#        dashboard: 192.168.0.123:8091
+#      datasource:
+#        flow-rules: #流控规则
+#          nacos:
+#            server-addr: 192.168.0.123:8847
+#            namespace: 6a7dbc5f-b376-41c6-a282-74ad4fd4829b
+#            username: nacos
+#            password: nacos
+#            dataId: ${spring.application.name}-flow-rules
+#            groupId: SENTINEL_GROUP   # 注意groupId对应Sentinel Dashboard中的定义
+#            data-type: json
+#            rule-type: flow
+#        degrade-rules:
+#          nacos:
+#            server-addr: 192.168.0.123:8847
+#            namespace: 6a7dbc5f-b376-41c6-a282-74ad4fd4829b
+#            dataId: ${spring.application.name}-degrade-rules
+#            groupId: SENTINEL_GROUP
+#            data-type: json
+#            rule-type: degrade
+#        param-flow-rules:
+#          nacos:
+#            server-addr: 192.168.0.123:8847
+#            namespace: 6a7dbc5f-b376-41c6-a282-74ad4fd4829b
+#            dataId: ${spring.application.name}-param-flow-rules
+#            groupId: SENTINEL_GROUP
+#            data-type: json
+#            rule-type: param-flow
+#        authority-rules:
+#          nacos:
+#            server-addr: 192.168.0.123:8847
+#            namespace: 6a7dbc5f-b376-41c6-a282-74ad4fd4829b
+#            dataId: ${spring.application.name}-authority-rules
+#            groupId: SENTINEL_GROUP
+#            data-type: json
+#            rule-type: authority
+#        system-rules:
+#          nacos:
+#            server-addr: 192.168.0.123:8847
+#            namespace: 6a7dbc5f-b376-41c6-a282-74ad4fd4829b
+#            dataId: ${spring.application.name}-system-rules
+#            groupId: SENTINEL_GROUP
+#            data-type: json
+#            rule-type: system
+#      web-context-unify: false #将其配置为 false 即可根据不同的 URL 进行<链路限流>
+#
+#    openfeign:
+#      client:
+#        config:
+#          mall-order:  # 对应微服务
+#            loggerLevel: FULL
+#            # 连接超时时间
+#            connectTimeout: 3000
+#            # 请求处理超时时间
+#            readTimeout: 5000
+#      httpclient:  #feign client使用 Apache HttpClient5
+#        hc5:
+#          enabled: true
+#      compression: # 配置 GZIP 来压缩数据
+#        request:
+#          enabled: true
+#          mime-types: text/xml,application/xml,application/json
+#          min-request-size: 2048  # 最小请求压缩阈值
+#        response:
+#          enabled: true
+#
+#logging:
+#  level:
+#    com.tuling.mall.configdemo.feign: debug   #打印openFegin日志
+#    com.alibaba.cloud.nacos.client.NacosPropertySourceBuilder: debug
+#
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: '*'

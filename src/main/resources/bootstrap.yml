@@ -1,0 +1,33 @@
+spring:
+  application:
+    name: spring-cloud-sentinel-demo  #微服务名称
+
+  profiles:
+    active: dev #加载开发环境的配置文件    mall-user-config-demo-dev.yml
+
+  cloud:
+    nacos:
+      config:  #配置nacos配置中心地址
+        server-addr: 192.168.0.123:8847
+        username: nacos
+        password: nacos
+        file-extension: yml   # 指定配置文件的扩展名为yml
+        namespace: 6a7dbc5f-b376-41c6-a282-74ad4fd4829b
+
+        # 自定义 Data Id 的配置
+        shared-configs:  #不同工程的通用配置 支持共享的 DataId
+          - data-id: nacos.yml
+            group: DEFAULT_GROUP
+          - data-id: openfeign.yml
+            group: DEFAULT_GROUP
+            refresh: true   #支持动态刷新
+
+        extension-configs:  # 支持一个应用多个 DataId 的配置
+          - data-id: actuator.yml
+          - data-id: common.yml
+            group: DEFAULT_GROUP
+            refresh: true   #支持动态刷新
+
+
+
+
